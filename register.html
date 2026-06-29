@@ -164,11 +164,29 @@ color:#888;
 .input-box input,
 .input-box select{
 flex:1;
+width:100%;
+min-width:0;
+max-width:100%;
 border:none;
 outline:none;
 background:transparent;
 color:#333;
 caret-color:#8B5E3C;
+}
+
+.input-box{
+position:relative;
+display:flex;
+align-items:center;
+border-radius:10px;
+padding:12px;
+background:#fff;
+border:1px solid #ddd;
+}
+
+.input-box select{
+padding-right:35px;
+cursor:pointer;
 }
 
 ::selection{background:#D2B48C;}
@@ -264,15 +282,8 @@ opacity:0;
 visibility:hidden;
 }
 
-/* 🔥 FIX DROPDOWN OPTIONS VISIBILITY */
-select{
-color:#fff;
-background:#0b0b0b;
-}
-
-select option{
-background:#0b0b0b;
-color:#fff;
+.auth-card{
+    overflow: hidden;
 }
 
 /* 🔥 STOP BODY FLEX INTERFERENCE */
@@ -305,6 +316,70 @@ justify-content:center;
 
 .terms input[type="checkbox"]{
     accent-color:#6F4518;
+}
+
+@media (max-width:480px){
+
+    .input-box{
+        width:100%;
+        overflow:hidden;
+    }
+
+    .input-box select{
+        width:100%;
+        max-width:100%;
+        min-width:0;
+        font-size:16px;
+    }
+
+}
+
+
+.custom-select{
+    position:relative;
+    width:100%;
+}
+
+.select-btn{
+    width:100%;
+    height:48px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:0 15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+    background:#fff;
+}
+
+.select-menu{
+    position:absolute;
+    top:100%;
+    left:0;
+    width:100%;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:10px;
+    margin-top:6px;
+    display:none;
+    overflow:hidden;
+    z-index:999;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.select-menu.show{
+    display:block;
+}
+
+.option{
+    padding:12px 15px;
+    cursor:pointer;
+}
+
+.option:hover{
+    background:#8B5E3C;
+    color:#fff;
 }
 
 </style>
@@ -346,12 +421,18 @@ justify-content:center;
 <!-- ROLE -->
 <div class="input-group">
 <label>Account Type</label>
-<div class="input-box">
-<select id="role" required>
-<option value="" selected disabled>--- Select Role ---</option>
-<option>Administrator</option>
-<option>User</option>
-</select>
+<div class="custom-select" id="customRole">
+    <div class="select-btn">
+        <span id="selectedRole">--- Select Role ---</span>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+
+    <div class="select-menu">
+        <div class="option" data-value="Administrator">Administrator</div>
+        <div class="option" data-value="User">User</div>
+    </div>
+
+    <input type="hidden" id="role" required>
 </div>
 </div>
 
@@ -442,6 +523,11 @@ e.preventDefault();
 
 let valid=true;
 
+if(roleInput.value===""){
+    alert("Please select an account type.");
+    return;
+}
+
 /* NAME VALIDATION */
 if(!namePattern.test(name.value.trim())){
 alert("Full Name should contain only alphabets");
@@ -479,6 +565,31 @@ localStorage.setItem("registeredUser",JSON.stringify(userData));
 /* REDIRECT */
 window.location.href="login.html";
 
+});
+
+
+const selectBtn=document.querySelector(".select-btn");
+const menu=document.querySelector(".select-menu");
+const options=document.querySelectorAll(".option");
+const selected=document.getElementById("selectedRole");
+const roleInput=document.getElementById("role");
+
+selectBtn.onclick=()=>{
+    menu.classList.toggle("show");
+};
+
+options.forEach(option=>{
+    option.onclick=()=>{
+        selected.innerText=option.dataset.value;
+        roleInput.value=option.dataset.value;
+        menu.classList.remove("show");
+    };
+});
+
+document.addEventListener("click",(e)=>{
+    if(!document.getElementById("customRole").contains(e.target)){
+        menu.classList.remove("show");
+    }
 });
 
 </script>

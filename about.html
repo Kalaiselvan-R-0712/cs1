@@ -2109,6 +2109,48 @@ font-size:38px;
     }
 }
 
+.case-stats{
+display:flex;
+gap:25px;
+margin-top:35px;
+flex-wrap:wrap;
+}
+
+.stat-card{
+flex:1;
+min-width:170px;
+padding:28px 20px;
+border-radius:18px;
+text-align:center;
+cursor:pointer;
+transition:all .35s ease;
+}
+
+.stat-card h3{
+font-size:50px;
+font-weight:700;
+color:#8B5E3C;
+margin-bottom:10px;
+transition:.35s;
+}
+
+.stat-card p{
+font-size:16px;
+color:#666;
+transition:.35s;
+}
+
+.stat-card:hover{
+background:#8B5E3C;
+transform:translateY(-10px);
+box-shadow:0 18px 40px rgba(139,94,60,.28);
+}
+
+.stat-card:hover h3,
+.stat-card:hover p{
+color:#fff;
+}
+
 </style>
 </head>
 
@@ -2194,7 +2236,7 @@ business success.
 <li><i class="fa fa-check"></i> Certified Corporate & Business Strategy Experts</li>
 </ul>
 
-<a href="404.html" class="about-btn">Contact Us</a>
+<a href="contact.html" class="about-btn">Contact Us</a>
 
 </div>
 
@@ -2296,17 +2338,17 @@ and generate 300% more qualified leads.
 
 <div class="case-stats">
 
-<div>
+<div class="stat-card">
 <h3>250%</h3>
 <p>Efficiency Gain</p>
 </div>
 
-<div>
+<div class="stat-card">
 <h3>300%</h3>
-<p>Efficiency Gain</p>
+<p>Efficiency Reach</p>
 </div>
 
-<div>
+<div class="stat-card">
 <h3>180%</h3>
 <p>Revenue Growth</p>
 </div>
