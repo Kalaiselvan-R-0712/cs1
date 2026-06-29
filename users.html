@@ -540,30 +540,6 @@ if(storedData){
         user.email || "";
 }
 
-const selectBtn=document.querySelector(".select-btn");
-const menu=document.querySelector(".select-menu");
-const options=document.querySelectorAll(".option");
-const selected=document.getElementById("selectedRole");
-const roleInput=document.getElementById("role");
-
-selectBtn.onclick=()=>{
-    menu.classList.toggle("show");
-};
-
-options.forEach(option=>{
-    option.onclick=()=>{
-        selected.innerText=option.dataset.value;
-        roleInput.value=option.dataset.value;
-        menu.classList.remove("show");
-    };
-});
-
-document.addEventListener("click",(e)=>{
-    if(!document.getElementById("customRole").contains(e.target)){
-        menu.classList.remove("show");
-    }
-});
-
 </script>
 </body>
 </html>
